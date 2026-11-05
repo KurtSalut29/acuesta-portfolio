@@ -1,26 +1,404 @@
 @import "tailwindcss";
 
+/*
+  Ivan asked for black and white only: black text and content on a white page in light
+  mode, and the exact opposite in dark mode. Everything here is a shade of neutral gray;
+  the only color on the page comes from his own screenshots and certificates.
+
+  "ink" is the main foreground (black / white) and "page" the background (white / black),
+  so `bg-ink text-page` is always an inverted block in either theme.
+*/
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --c-page: #ffffff;
+  --c-soft: #f4f4f4;
+  --c-ink: #0a0a0a;
+  --c-text: #3d3d3d;
+  --c-muted: #6e6e6e;
+  --c-line: #e4e4e4;
+  --c-bezel: #141414;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --c-page: #0a0a0a;
+  --c-soft: #141414;
+  --c-ink: #fafafa;
+  --c-text: #c9c9c9;
+  --c-muted: #929292;
+  --c-line: #272727;
+  --c-bezel: #1d1d1d;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-page: var(--c-page);
+  --color-soft: var(--c-soft);
+  --color-ink: var(--c-ink);
+  --color-text: var(--c-text);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-bezel: var(--c-bezel);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --font-serif: var(--font-bodoni);
+  --font-sans: var(--font-hanken);
+  --font-script: var(--font-signature);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.25rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--c-page);
+    color: var(--c-text);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--c-ink);
+    font-family: var(--font-serif), Georgia, serif;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--c-ink);
+    color: var(--c-page);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Large screens: leave room for the pinned navbar when jumping to a section. */
+@media (min-width: 64rem) {
+  html {
+    scroll-padding-top: 5rem;
+  }
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+@page {
+  size: A4;
+  margin: 14mm 16mm;
+}
+
+/* Small uppercase label used across the page, as in the reference design. */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Dot grid behind the portrait. */
+.dots {
+  background-image: radial-gradient(var(--c-muted) 1px, transparent 1.2px);
+  background-size: 16px 16px;
+  opacity: 0.35;
+}
+
+/*
+  Theme switch: a diamond opens from the toggle button and grows until the new theme
+  covers the page (animated from theme.ts). Without View Transitions colors crossfade.
+*/
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.theme-fade,
+.theme-fade *,
+.theme-fade *::before,
+.theme-fade *::after {
+  transition:
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    fill 0.45s ease !important;
+}
+
+/* ───────────── Page-load sequence ───────────── */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 22px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.rise {
+  animation: rise 1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 110ms + 300ms);
+}
+
+/* Headline lines are wiped in from the left, one after another, like ink being laid down. */
+@keyframes wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+    translate: -12px 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    translate: 0 0;
+  }
+}
+
+.wipe {
+  display: block;
+  animation: wipe 1.15s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 140ms + 200ms);
+}
+
+/* Thin rule that draws across. */
+@keyframes draw-x {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+.draw-x {
+  transform-origin: left;
+  animation: draw-x 1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 110ms + 300ms);
+}
+
+/* Portrait: the frame opens upward while the photo settles from a slight zoom. */
+@keyframes frame-open {
+  from {
+    clip-path: inset(100% 0 0 0 round 24px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 24px);
+  }
+}
+
+@keyframes settle {
+  from {
+    scale: 1.15;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.frame-open {
+  animation: frame-open 1.3s var(--ease-out-expo) 0.35s both;
+}
+
+.frame-open img {
+  animation: settle 1.8s var(--ease-out-expo) 0.35s both;
+}
+
+/* The large outline circle behind the portrait draws itself. */
+@keyframes trace {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.trace {
+  stroke-dasharray: 1;
+  animation: trace 2.2s var(--ease-out-expo) 0.5s both;
+}
+
+/* "Scroll down" line: a short segment keeps running down it. */
+@keyframes run-down {
+  0% {
+    translate: 0 -100%;
+  }
+  100% {
+    translate: 0 250%;
+  }
+}
+
+.run-down {
+  animation: run-down 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* ───────────── Scroll reveals ───────────── */
+
+/*
+  Elements with data-reveal fade up when they scroll into view (reveal-observer.tsx
+  sets data-shown). Only with JS, so content never stays hidden. --d staggers in ms.
+*/
+.js [data-reveal] {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    translate 1s var(--ease-out-expo);
+  transition-delay: calc(var(--d, 0) * 1ms);
+}
+
+.js [data-reveal][data-shown] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* His signature is "written" left to right once the About section is revealed. */
+.signature {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+}
+
+[data-shown] .signature,
+html:not(.js) .signature {
+  clip-path: inset(0 0 0 0);
+}
+
+/*
+  Device mockups. As a project scrolls into view the laptop lid opens on its hinge, the
+  phone slides up beside it, and the screens go from black-and-white to full color.
+*/
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes lid-open {
+      from {
+        transform: perspective(1600px) rotateX(-68deg);
+      }
+      to {
+        transform: perspective(1600px) rotateX(0deg);
+      }
+    }
+
+    @keyframes phone-up {
+      from {
+        translate: 0 90px;
+        opacity: 0;
+      }
+      to {
+        translate: 0 0;
+        opacity: 1;
+      }
+    }
+
+    @keyframes to-color {
+      from {
+        filter: grayscale(1) contrast(1.05);
+      }
+      to {
+        filter: grayscale(0) contrast(1);
+      }
+    }
+
+    .lid {
+      transform-origin: 50% 100%;
+      animation: lid-open linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 38%;
+    }
+
+    .phone-up {
+      animation: phone-up linear both;
+      animation-timeline: view();
+      animation-range: entry 15% cover 40%;
+    }
+
+    .to-color {
+      animation: to-color linear both;
+      animation-timeline: view();
+      animation-range: cover 25% cover 48%;
+    }
+  }
+}
+
+/* Image viewer. */
+.viewer {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity 0.35s var(--ease-out-expo),
+    translate 0.5s var(--ease-out-expo),
+    overlay 0.5s allow-discrete,
+    display 0.5s allow-discrete;
+}
+
+.viewer[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .viewer[open] {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+.viewer::backdrop {
+  background: rgb(0 0 0 / 0);
+  transition:
+    background-color 0.35s,
+    overlay 0.5s allow-discrete,
+    display 0.5s allow-discrete;
+}
+
+.viewer[open]::backdrop {
+  background: rgb(0 0 0 / 0.72);
+}
+
+@starting-style {
+  .viewer[open]::backdrop {
+    background: rgb(0 0 0 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js [data-reveal] {
+    opacity: 1 !important;
+    translate: none !important;
+  }
+
+  .signature {
+    clip-path: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
 }
