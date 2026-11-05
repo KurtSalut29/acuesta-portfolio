@@ -6,9 +6,9 @@ import { PrintButton } from "@/components/print-button";
 import { profile, resume } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Résumé · Ivan Acuesta",
+  title: "Résumé · John Ivan Acuesta",
   description:
-    "ATS-friendly résumé of John Ivan Ruel Acuesta, BS Computer Science student and UI/UX Designer & Developer.",
+    "ATS-friendly résumé of John Ivan Acuesta, BS Computer Science student and UI/UX Designer & Developer.",
 };
 
 const sheetFont = "font-[Arial,Helvetica,sans-serif]";
@@ -55,7 +55,7 @@ export default function ResumePage() {
       >
         <header className="text-center">
           <h1 className={`${sheetFont} text-[20pt] leading-tight font-bold tracking-[0.02em] text-black`}>
-            JOHN IVAN RUEL ACUESTA
+            JOHN IVAN ACUESTA
           </h1>
           <p className="mt-0.5 text-[11pt] font-semibold text-black">{resume.headline}</p>
           <p className="mt-1.5">

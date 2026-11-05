@@ -131,12 +131,13 @@ export default function Home() {
                     className="hidden size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1 min-[400px]:block"
                   />
                 </a>
-                <a
-                  href="#about"
-                  className={`inline-flex h-12 items-center justify-center border border-ink px-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-page sm:px-7 ${buttonLabel}`}
+                <Link
+                  href="/resume"
+                  className={`inline-flex h-12 items-center justify-center gap-2.5 border border-ink px-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-page sm:px-7 ${buttonLabel}`}
                 >
-                  About me
-                </a>
+                  <FileText aria-hidden="true" className="hidden size-4 min-[400px]:block" />
+                  Résumé
+                </Link>
               </div>
               <a
                 href="#services"
@@ -151,7 +152,7 @@ export default function Home() {
             </div>
 
             {/* Portrait */}
-            <figure className="relative mx-auto w-[min(76vw,320px)] lg:col-span-5 lg:col-start-8 lg:w-full lg:max-w-[440px]">
+            <figure className="group relative mx-auto w-[min(76vw,320px)] lg:col-span-5 lg:col-start-8 lg:w-full lg:max-w-[440px]">
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 100"
@@ -162,16 +163,26 @@ export default function Home() {
               <div aria-hidden="true" className="dots rise absolute -top-6 -right-8 size-32 sm:-right-12 sm:size-40" style={delay(3)} />
               <div aria-hidden="true" className="dots rise absolute -bottom-8 -left-8 size-24 sm:size-28" style={delay(4)} />
 
-              <div className="frame-open relative aspect-[4/5] overflow-hidden rounded-[24px] bg-soft">
-                <Image
-                  src={profile.photo}
-                  alt="Portrait of Ivan Acuesta in a black suit, white shirt and black tie."
-                  fill
-                  preload
-                  quality={90}
-                  sizes="(min-width: 1024px) 440px, 76vw"
-                  className="object-cover object-[50%_18%] grayscale transition-[filter] duration-1000 hover:grayscale-0"
-                />
+              <div className="relative aspect-[4/5]">
+                {/* Hover: the halo swells and the portrait lifts toward the viewer. Each
+                    sits in its own wrapper because the entrance animations own scale/translate. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-[6%] top-[10%] aspect-square transition-[scale] duration-700 ease-out-expo group-hover:scale-[1.12]"
+                >
+                  <div className="halo size-full rounded-full" />
+                </div>
+                <div className="portrait person-in absolute inset-0">
+                  <Image
+                    src={profile.cutout}
+                    alt="Portrait of John Ivan Acuesta in a black suit, white shirt and black tie."
+                    fill
+                    preload
+                    quality={90}
+                    sizes="(min-width: 1024px) 440px, 76vw"
+                    className="origin-bottom object-contain object-bottom transition-[scale,translate] duration-700 ease-out-expo group-hover:-translate-y-2 group-hover:scale-[1.03]"
+                  />
+                </div>
               </div>
 
               {/* Centered with flex, not translate: the entrance animation owns `translate`. */}
@@ -287,8 +298,8 @@ export default function Home() {
                 real-world problem, planning the system behind it, designing screens that feel simple, and building
                 them, adding AI where it actually helps.
               </p>
-              <p aria-hidden="true" className="signature mt-6 font-script text-[3.2rem] leading-none text-ink">
-                Ivan Acuesta
+              <p aria-hidden="true" className="signature mt-6 font-script text-[2.7rem] leading-none text-ink sm:text-[3.2rem]">
+                John Ivan Acuesta
               </p>
               <Link
                 href="/resume"
@@ -407,7 +418,7 @@ export default function Home() {
                 </h2>
                 <a
                   href={`mailto:${profile.email}`}
-                  className="mt-8 inline-block font-serif text-[clamp(1.05rem,4.6vw,1.9rem)] text-page italic [overflow-wrap:anywhere] decoration-1 underline-offset-8 hover:underline"
+                  className="mt-7 inline-block font-serif text-[clamp(1rem,3.6vw,1.3rem)] text-page italic [overflow-wrap:anywhere] decoration-1 underline-offset-8 hover:underline"
                 >
                   {profile.email}
                 </a>

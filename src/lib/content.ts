@@ -8,8 +8,10 @@
 // - Project descriptions are written from what the screenshots show.
 
 export const profile = {
-  name: "Ivan Acuesta",
-  fullName: "John Ivan Ruel Acuesta",
+  name: "John Ivan Acuesta",
+  fullName: "John Ivan Acuesta",
+  // As printed on his certificates; used only where a certificate is described.
+  legalName: "John Ivan Ruel Acuesta",
   first: "Ivan",
   last: "Acuesta",
   role: "UI/UX Designer & Developer",
@@ -19,7 +21,9 @@ export const profile = {
   email: "ivan.acuesta0519@gmail.com",
   facebook: "Ivan Acuesta",
   photo: "/profile.jpg",
-  resumePdf: "/resume/Ivan-Acuesta-Resume.pdf",
+  // Same portrait with the backdrop removed (transparent PNG), used in the hero.
+  cutout: "/profile-cutout.png",
+  resumePdf: "/resume/John-Ivan-Acuesta-Resume.pdf",
 };
 
 export const navLinks = [
@@ -117,8 +121,8 @@ export const projects: Project[] = [
       src: "/projects/ziren-dashboard-screen.jpg",
       full: "/projects/ziren-dashboard-full.jpg",
       alt: "Ziren responder dashboard showing a high-severity fire report, the AI model's classification, and a map route from the nearest fire station.",
-      width: 1439,
-      height: 677,
+      width: 2878,
+      height: 1354,
     },
     phone: {
       src: "/projects/ziren-mobile.jpg",
@@ -145,8 +149,8 @@ export const projects: Project[] = [
       src: "/projects/unifind-screen.jpg",
       full: "/projects/unifind-full.jpg",
       alt: "UniFind home page with a sidebar menu, a search bar, and a recent lost item card for a black wallet.",
-      width: 1882,
-      height: 902,
+      width: 3764,
+      height: 1804,
     },
   },
 ];

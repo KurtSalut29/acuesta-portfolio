@@ -61,7 +61,7 @@ export function useImageViewer() {
               width={item.width}
               height={item.height}
               quality={90}
-              sizes="(min-width: 640px) 1000px, 100vw"
+              sizes="(min-width: 640px) 1200px, 100vw"
               className="mx-auto h-auto max-h-[70dvh] w-auto rounded-xl object-contain shadow-[0_20px_40px_-24px_rgba(0,0,0,0.4)]"
             />
           </div>

@@ -162,12 +162,14 @@ html:has(dialog[open]) {
 
 /* Headline lines are wiped in from the left, one after another, like ink being laid down. */
 @keyframes wipe {
+  /* Negative insets leave room for descenders (g, y) and the italic overhang, which sit
+     outside the tight line box. */
   from {
-    clip-path: inset(0 100% 0 0);
+    clip-path: inset(-0.3em 100% -0.35em -0.3em);
     translate: -12px 0;
   }
   to {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(-0.3em -0.3em -0.35em -0.3em);
     translate: 0 0;
   }
 }
@@ -194,31 +196,70 @@ html:has(dialog[open]) {
   animation-delay: calc(var(--i, 0) * 110ms + 300ms);
 }
 
-/* Portrait: the frame opens upward while the photo settles from a slight zoom. */
-@keyframes frame-open {
-  from {
-    clip-path: inset(100% 0 0 0 round 24px);
-  }
-  to {
-    clip-path: inset(0 0 0 0 round 24px);
-  }
+/* Portrait: Ivan's cutout stands in front of a soft halo in the ink colour (black in
+   light mode, white in dark mode). The halo swells in, then breathes slowly; the
+   portrait rises in front of it and its bottom fades into the page. The fade is on the
+   photo only, so it never clips the halo. */
+.portrait {
+  /* Bottom fade, plus a short side fade so the arms (cut off in the original photo)
+     dissolve instead of ending in a straight edge. */
+  mask-image:
+    linear-gradient(to bottom, #000 68%, transparent 97%),
+    linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-composite: intersect;
 }
 
-@keyframes settle {
+.halo {
+  /* Many stops so the falloff is smooth and reaches nothing before the edge: no ring. */
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-ink) 92%, transparent) 0%,
+    color-mix(in oklab, var(--color-ink) 70%, transparent) 22%,
+    color-mix(in oklab, var(--color-ink) 42%, transparent) 45%,
+    color-mix(in oklab, var(--color-ink) 18%, transparent) 66%,
+    color-mix(in oklab, var(--color-ink) 5%, transparent) 84%,
+    transparent 100%
+  );
+  animation:
+    halo-in 1.8s var(--ease-out-expo) 0.3s both,
+    halo-breathe 6s ease-in-out 2.1s infinite alternate;
+}
+
+@keyframes halo-in {
   from {
-    scale: 1.15;
+    opacity: 0;
+    scale: 0.45;
   }
   to {
+    opacity: 1;
     scale: 1;
   }
 }
 
-.frame-open {
-  animation: frame-open 1.3s var(--ease-out-expo) 0.35s both;
+@keyframes halo-breathe {
+  from {
+    scale: 1;
+    opacity: 1;
+  }
+  to {
+    scale: 1.06;
+    opacity: 0.82;
+  }
 }
 
-.frame-open img {
-  animation: settle 1.8s var(--ease-out-expo) 0.35s both;
+.person-in {
+  animation: person-in 1.4s var(--ease-out-expo) 0.55s both;
+}
+
+@keyframes person-in {
+  from {
+    opacity: 0;
+    translate: 0 48px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 /* The large outline circle behind the portrait draws itself. */

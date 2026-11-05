@@ -28,7 +28,7 @@ export function CertificateIndex({ items }: { items: Certificate[] }) {
   const view = (cert: Certificate) =>
     open({
       src: cert.image,
-      alt: `${cert.title} certificate awarded to ${profile.fullName} by ${cert.issuer}.`,
+      alt: `${cert.title} certificate awarded to ${profile.legalName} by ${cert.issuer}.`,
       title: cert.title,
       subtitle: `${cert.kind} · ${cert.issuer} · ${cert.date}`,
       width: cert.width,
@@ -78,6 +78,7 @@ export function CertificateIndex({ items }: { items: Certificate[] }) {
                       alt=""
                       fill
                       sizes="110px"
+                      quality={90}
                       className="object-cover"
                     />
                   </span>
@@ -131,6 +132,7 @@ export function CertificateIndex({ items }: { items: Certificate[] }) {
                     alt=""
                     fill
                     sizes="300px"
+                    quality={90}
                     className="object-cover"
                   />
                 </div>

@@ -43,7 +43,7 @@ export function ProjectFeature({ project, index }: { project: Project; index: nu
             aria-label={`View the ${project.name} desktop screenshot full size`}
             className="group relative block w-full text-left"
           >
-            <Laptop shot={project.laptop} sizes="(min-width: 1024px) 620px, 92vw" />
+            <Laptop shot={project.laptop} sizes="(min-width: 1024px) 680px, 92vw" />
             <span className="absolute top-4 right-[10%] grid size-9 place-items-center rounded-full bg-page text-ink shadow-lg transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
               <Expand aria-hidden="true" className="size-4" />
             </span>

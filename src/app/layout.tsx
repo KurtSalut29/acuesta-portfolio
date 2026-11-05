@@ -22,13 +22,13 @@ const signature = Mrs_Saint_Delafield({
 });
 
 export const metadata: Metadata = {
-  title: "Ivan Acuesta · UI/UX Designer & Developer",
+  title: "John Ivan Acuesta · UI/UX Designer & Developer",
   description:
-    "Portfolio of Ivan Acuesta, a Computer Science student at Biliran Province State University who designs and builds user-friendly systems: UI/UX design, system planning, and AI.",
-  authors: [{ name: "John Ivan Ruel Acuesta" }],
+    "Portfolio of John Ivan Acuesta, a Computer Science student at Biliran Province State University who designs and builds user-friendly systems: UI/UX design, system planning, and AI.",
+  authors: [{ name: "John Ivan Acuesta" }],
   openGraph: {
-    title: "Ivan Acuesta · UI/UX Designer & Developer",
-    description: "Services, projects, skills, and certificates of Ivan Acuesta.",
+    title: "John Ivan Acuesta · UI/UX Designer & Developer",
+    description: "Services, projects, skills, and certificates of John Ivan Acuesta.",
     type: "website",
   },
 };
