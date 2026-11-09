@@ -1,8 +1,7 @@
-import { ArrowLeft, Download } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { PrintButton } from "@/components/print-button";
 import { profile, resume } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -37,17 +36,6 @@ export default function ResumePage() {
           <ArrowLeft aria-hidden="true" className="size-4" />
           Back to portfolio
         </Link>
-        <div className="flex gap-2">
-          <PrintButton />
-          <a
-            href={profile.resumePdf}
-            download
-            className="inline-flex h-10 items-center gap-2 rounded-full bg-black px-4 text-sm font-semibold text-white transition-colors hover:bg-neutral-800"
-          >
-            <Download aria-hidden="true" className="size-4" />
-            Download PDF
-          </a>
-        </div>
       </div>
 
       <article

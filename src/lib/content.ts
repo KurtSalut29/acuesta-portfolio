@@ -28,7 +28,6 @@ export const profile = {
   photo: "/profile.jpg",
   // Same portrait with the backdrop removed (transparent PNG), used in the hero.
   cutout: "/profile-cutout.png",
-  resumePdf: "/resume/John-Ivan-Acuesta-Resume.pdf",
 };
 
 export const navLinks = [

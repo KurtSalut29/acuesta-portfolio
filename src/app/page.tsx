@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   Award,
   BrainCircuit,
-  Download,
   FileText,
   Layers,
   Mail,
@@ -312,10 +311,10 @@ export default function Home() {
                 href="/resume"
                 className={`group mt-7 inline-flex h-12 items-center gap-2.5 border border-ink px-6 text-ink transition-colors duration-300 hover:bg-ink hover:text-page ${buttonLabel}`}
               >
-                Download CV
-                <Download
+                View résumé
+                <ArrowRight
                   aria-hidden="true"
-                  className="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-y-0.5"
+                  className="size-4 transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
                 />
               </Link>
             </div>

@@ -6,7 +6,7 @@ Built with **Next.js 16.4.3**, **React 19.3.0**, **TypeScript** and **Tailwind C
 
 - Responsive on phones, tablets, laptops and desktops
 - Light and dark mode
-- ATS-friendly résumé at `/resume`, with a downloadable PDF
+- ATS-friendly résumé at `/resume` (view only; it can't be downloaded)
 
 ---
 
@@ -145,11 +145,8 @@ Then open [http://localhost:3000](http://localhost:3000). Stop it with `Ctrl + C
 | Profile photo | `public/profile-cutout.png` and `public/profile.jpg` (the cutout with a transparent background is the one shown on the home page) |
 | Project screenshots | `public/projects/` |
 | Certificates | `public/certificates/` |
-| Downloadable résumé PDF | `public/resume/John-Ivan-Acuesta-Resume.pdf` |
 
 > **Replacing an image?** Keep the same file name, or update the path in `src/lib/content.ts`.
->
-> **Updated the résumé text?** Make a new PDF: run the site, open `/resume`, click the print button, choose **Save as PDF**, and replace `public/resume/John-Ivan-Acuesta-Resume.pdf` with it.
 
 ---
 
@@ -160,7 +157,6 @@ acuesta-portfolio/
 ├── public/                 Images and files served as they are
 │   ├── certificates/       Certificate images (and PDFs)
 │   ├── projects/           Project screenshots
-│   ├── resume/             Résumé PDF
 │   └── profile-cutout.png  profile.jpg       Profile photo
 ├── src/
 │   ├── app/
