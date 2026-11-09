@@ -59,7 +59,13 @@ export default function ResumePage() {
           </h1>
           <p className="mt-0.5 text-[11pt] font-semibold text-black">{resume.headline}</p>
           <p className="mt-1.5">
-            {profile.email}
+            <a href={`mailto:${profile.email}`} className="text-black">
+              {profile.email}
+            </a>{" "}
+            |{" "}
+            <a href={profile.linkedinUrl} className="text-black">
+              {profile.linkedinLabel}
+            </a>
           </p>
         </header>
 
@@ -95,7 +101,7 @@ export default function ResumePage() {
             {resume.projects.map((project) => (
               <div key={project.name} className="break-inside-avoid">
                 <h3 className={`${sheetFont} text-[10.5pt] font-bold text-black`}>
-                  {project.name} | {project.subtitle}
+                  {project.name} | {project.subtitle} <span className="font-normal">| {project.tools}</span>
                 </h3>
                 <ul className="mt-1 list-disc space-y-0.5 pl-5">
                   {project.bullets.map((bullet) => (

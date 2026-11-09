@@ -6,6 +6,8 @@
 // - School and course come from his thesis-preparation certificate (Biliran Province
 //   State University, Computer Science Society).
 // - Project descriptions are written from what the screenshots show.
+// - Project tools, Facebook and LinkedIn links were given by the user (2026-11-09).
+// - Figma was removed from skills at Ivan's request (not confident with it yet).
 
 export const profile = {
   name: "John Ivan Acuesta",
@@ -20,6 +22,9 @@ export const profile = {
   school: "Biliran Province State University",
   email: "ivan.acuesta0519@gmail.com",
   facebook: "Ivan Acuesta",
+  facebookUrl: "https://www.facebook.com/excusemeivan",
+  linkedinUrl: "https://www.linkedin.com/in/john-ivan-ruel-acuesta-3a466736b",
+  linkedinLabel: "linkedin.com/in/john-ivan-ruel-acuesta-3a466736b",
   photo: "/profile.jpg",
   // Same portrait with the backdrop removed (transparent PNG), used in the hero.
   cutout: "/profile-cutout.png",
@@ -49,7 +54,7 @@ export const services: Service[] = [
     text: "Turning ideas into clean, user-friendly designs through thoughtful layouts and interactive prototypes.",
     items: [
       "Website and mobile app interfaces",
-      "Figma wireframes and prototypes",
+      "Wireframes and interactive prototypes",
       "Responsive layouts for different screens",
       "User-centered design and navigation",
     ],
@@ -98,7 +103,8 @@ export type Project = {
   tagline: string;
   summary: string;
   points: string[];
-  tags: string[];
+  /** Tools it was built with, shown as logos (names must match keys in logos.ts or tool-logos.tsx). */
+  tools: string[];
   laptop: Shot;
   phone?: Shot;
 };
@@ -116,7 +122,7 @@ export const projects: Project[] = [
       "Responder dashboard: severity, map route, distance and estimated response time",
       "AI suggestion with its confidence, kept advisory until a responder validates it",
     ],
-    tags: ["Mobile app", "Web dashboard", "Machine learning"],
+    tools: ["Next.js", "FastAPI", "Flutter", "Supabase"],
     laptop: {
       src: "/projects/ziren-dashboard-screen.jpg",
       full: "/projects/ziren-dashboard-full.jpg",
@@ -144,7 +150,7 @@ export const projects: Project[] = [
       "Browse and search recent items, with priority labels",
       "Built-in messages and notifications",
     ],
-    tags: ["Web app", "UI design", "Search"],
+    tools: ["Python", "Django", "HTML", "CSS", "JavaScript"],
     laptop: {
       src: "/projects/unifind-screen.jpg",
       full: "/projects/unifind-full.jpg",
@@ -175,11 +181,11 @@ export const skillGroups = [
     title: "Design and Development Tools",
     text: "Tools I use to design, organize, test, and manage projects.",
     items: [
-      "Figma",
       "Canva",
       "Jupyter Notebook",
       "Visual Studio Code",
-      "Git and GitHub",
+      "Git",
+      "GitHub",
       "Microsoft Office",
       "Google Workspace",
     ],
@@ -255,18 +261,18 @@ export const certificates: Certificate[] = [
 export const resume = {
   headline: "UI/UX Designer & Developer",
   summary:
-    "BS Computer Science student at Biliran Province State University who designs and builds user-friendly systems. Experienced in UI/UX design and prototyping in Figma, system planning and analysis, and machine learning for text classification. Built Ziren, an emergency response system with a mobile app and responder dashboard, and UniFind, a campus lost-and-found web app.",
+    "BS Computer Science student at Biliran Province State University who designs and builds user-friendly systems. Experienced in UI/UX design and prototyping, system planning and analysis, and machine learning for text classification. Built Ziren, an emergency response system with a mobile app and responder dashboard, and UniFind, a campus lost-and-found web app.",
   skills: [
     { label: "Programming Languages", items: "Python, JavaScript, HTML, CSS, SQL" },
     { label: "Frameworks", items: "Django, Tailwind CSS, Bootstrap" },
     { label: "AI and Data", items: "Machine Learning, Natural Language Processing (NLP), TF-IDF, Logistic Regression" },
     {
       label: "Tools",
-      items: "Figma, Canva, Jupyter Notebook, Visual Studio Code, Git and GitHub, Microsoft Office, Google Workspace",
+      items: "Canva, Jupyter Notebook, Visual Studio Code, Git and GitHub, Microsoft Office, Google Workspace",
     },
   ],
   services: [
-    "UI/UX Design and Prototyping (Figma wireframes and prototypes, responsive layouts)",
+    "UI/UX Design and Prototyping (wireframes, interactive prototypes, responsive layouts)",
     "System Planning and Analysis (requirements, workflow diagrams, database design)",
     "AI and Machine Learning (text classification, NLP, model training and evaluation)",
     "Technical Documentation and Research (thesis, software testing, system manuals)",
@@ -274,7 +280,8 @@ export const resume = {
   projects: [
     {
       name: "Ziren",
-      subtitle: "Emergency Response System for Biliran (Mobile App and Web Dashboard)",
+      subtitle: "Emergency Response System for Biliran (Mobile and Web)",
+      tools: "Next.js, FastAPI, Flutter, Supabase",
       bullets: [
         "Mobile app for residents to report fire, medical, accident, crime, and calamity incidents.",
         "Responder dashboard with incident severity, map route from the nearest station, and response time.",
@@ -284,6 +291,7 @@ export const resume = {
     {
       name: "UniFind",
       subtitle: "Campus Lost-and-Found Web Application",
+      tools: "Python, Django, HTML, CSS, JavaScript",
       bullets: [
         "Web app for reporting lost and found items with photos, category, and location.",
         "Search, priority labels, messaging, and notifications between users.",

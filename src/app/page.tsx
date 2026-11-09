@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   ArrowUp,
+  ArrowUpRight,
   Award,
   BrainCircuit,
   Download,
@@ -22,6 +23,7 @@ import { CopyButton } from "@/components/copy-button";
 import { CountUp } from "@/components/count-up";
 import { Navbar } from "@/components/navbar";
 import { ProjectFeature } from "@/components/project-feature";
+import { ToolLogo, ToolLogos } from "@/components/tool-logos";
 import {
   certificates,
   navLinks,
@@ -44,6 +46,11 @@ const serviceIcons: Record<Service["key"], LucideIcon> = {
   ai: BrainCircuit,
   docs: FileText,
 };
+
+const socials = [
+  { name: "Facebook", href: profile.facebookUrl },
+  { name: "LinkedIn", href: profile.linkedinUrl },
+] as const;
 
 const buttonLabel = "text-[12.5px] font-semibold tracking-[0.14em] uppercase";
 const h2 = "mt-4 text-[2.5rem] leading-[1.02] tracking-[-0.02em] sm:text-5xl lg:text-[3.6rem]";
@@ -264,7 +271,7 @@ export default function Home() {
         </section>
 
         {/* ───────────── Work ───────────── */}
-        <section id="work" aria-labelledby="work-title" className="py-16 lg:py-24">
+        <section id="work" aria-labelledby="work-title" className="overflow-x-clip py-16 lg:py-24">
           <div className={container}>
             <SectionHead
               eyebrow="Featured work"
@@ -344,7 +351,7 @@ export default function Home() {
         </section>
 
         {/* ───────────── Skills ───────────── */}
-        <section id="skills" aria-labelledby="skills-title" className="py-16 lg:py-24">
+        <section id="skills" aria-labelledby="skills-title" className="overflow-x-clip py-16 lg:py-24">
           <div className={container}>
             <SectionHead
               eyebrow="Skills and tools"
@@ -359,21 +366,12 @@ export default function Home() {
               The tools <em>I work with.</em>
             </SectionHead>
 
-            <div className="mt-12 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+            <div className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
               {skillGroups.map((group, i) => (
                 <div key={group.title} data-reveal="" style={stagger(i * 100)} className="bg-page p-6 sm:p-7">
                   <h3 className="text-[1.6rem] leading-tight">{group.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{group.text}</p>
-                  <ul className="mt-6 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="cursor-default border border-line px-3 py-1.5 text-[13px] font-medium text-ink transition-[background-color,color,border-color] duration-300 hover:border-ink hover:bg-ink hover:text-page"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <ToolLogos items={group.items} label={group.title} className="mt-6" />
                 </div>
               ))}
             </div>
@@ -418,7 +416,7 @@ export default function Home() {
                 </h2>
                 <a
                   href={`mailto:${profile.email}`}
-                  className="mt-7 inline-block font-serif text-[clamp(1rem,3.6vw,1.3rem)] text-page italic [overflow-wrap:anywhere] decoration-1 underline-offset-8 hover:underline"
+                  className="mt-7 inline-block font-sans text-[clamp(0.95rem,3.4vw,1.15rem)] font-medium tracking-[0.04em] text-page [overflow-wrap:anywhere] decoration-1 underline-offset-8 hover:underline"
                 >
                   {profile.email}
                 </a>
@@ -436,9 +434,25 @@ export default function Home() {
                   />
                 </a>
                 <CopyButton value={profile.email} label="Copy email" variant="inverted" />
-                <p className="mt-2 text-center text-sm text-page/65 lg:text-left">
-                  Also on Facebook: <span className="font-semibold text-page">{profile.facebook}</span>
-                </p>
+                <ul aria-label="Social profiles" className="mt-2 flex flex-wrap justify-center gap-x-6 gap-y-2 lg:justify-start">
+                  {socials.map((social) => (
+                    <li key={social.name}>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group inline-flex items-center gap-2 py-1 text-sm font-semibold text-page/75 transition-colors hover:text-page"
+                      >
+                        <ToolLogo name={social.name} className="size-4" />
+                        {social.name}
+                        <ArrowUpRight
+                          aria-hidden="true"
+                          className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -492,7 +506,19 @@ export default function Home() {
                   {profile.email}
                 </a>
               </li>
-              <li>Facebook: {profile.facebook}</li>
+              {socials.map((social) => (
+                <li key={social.name}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 transition-colors hover:text-ink"
+                  >
+                    <ToolLogo name={social.name} className="size-3.5" />
+                    {social.name}
+                  </a>
+                </li>
+              ))}
               <li>{profile.school}</li>
               <li>
                 <Link href="/resume" className="inline-flex items-center gap-1.5 font-semibold text-ink">

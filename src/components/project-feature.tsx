@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import type { Project } from "@/lib/content";
 import { Laptop, Phone } from "./devices";
 import { useImageViewer } from "./image-viewer";
+import { ToolLogos } from "./tool-logos";
 
 /**
  * One project: a laptop mockup (with a phone beside it when the project has a mobile
@@ -89,13 +90,8 @@ export function ProjectFeature({ project, index }: { project: Project; index: nu
           ))}
         </ul>
 
-        <ul className="mt-7 flex flex-wrap gap-2" aria-label="Tags">
-          {project.tags.map((tag) => (
-            <li key={tag} className="border border-line px-3 py-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-ink uppercase">
-              {tag}
-            </li>
-          ))}
-        </ul>
+        <p className="eyebrow mt-7 text-muted">Built with</p>
+        <ToolLogos items={project.tools} label={`Tools used to build ${project.name}`} size="sm" className="mt-3" />
 
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
           <button
